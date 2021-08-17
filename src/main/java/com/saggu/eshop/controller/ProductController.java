@@ -2,6 +2,8 @@ package com.saggu.eshop.controller;
 
 import com.saggu.eshop.dao.ProductDao;
 import com.saggu.eshop.dto.ProductDto;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,7 +26,7 @@ public class ProductController {
     }
 
     @PostMapping(value = "/products")
-    public ProductDto addProducts(@RequestBody ProductDto productDto) {
-        return productDao.addProduct(productDto);
+    public ResponseEntity<ProductDto> addProducts(@RequestBody ProductDto productDto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(productDao.addProduct(productDto));
     }
 }
