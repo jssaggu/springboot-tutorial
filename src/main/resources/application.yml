@@ -1,8 +1,12 @@
-springdoc:
-  use-management-port: true
-
 server:
   port: 8080
+
+springdoc:
+  use-management-port: false
+  api-docs:
+    enabled: false
+  swagger-ui:
+    enabled: false
 
 management:
   server:
@@ -11,3 +15,12 @@ management:
     web:
       exposure:
         include: openapi, swaggerui
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+products:
+  prefix: "[Sample] "
