@@ -1,2 +1,19 @@
+server:
+  port: 8080
+
+springdoc:
+  use-management-port: false
+  api-docs:
+    enabled: false
+  swagger-ui:
+    enabled: false
+
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+
 products:
-  prefix: "[Prod] "
+  prefix: "[Sample] "

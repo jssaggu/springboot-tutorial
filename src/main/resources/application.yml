@@ -1,12 +1,22 @@
-server:
-  port: 8080
+logging:
 
-springdoc:
-  use-management-port: false
-  api-docs:
-    enabled: false
-  swagger-ui:
-    enabled: false
+  level:
+    root: ERROR
+    eshop-dao: DEBUG
+    eshop-controller: INFO
+    eshop: INFO
+
+  group:
+    spring: "org.springframework, org.springdoc"
+    eshop-dao: "com.saggu.eshop.dao"
+    eshop-controller: "com.saggu.eshop.controller"
+    eshop: "com.saggu.eshop"
+
+server:
+  tomcat:
+    threads:
+      max: 5
+    max-connections: 10
 
 management:
   server:
@@ -14,13 +24,4 @@ management:
   endpoints:
     web:
       exposure:
-        include: openapi, swaggerui
-
----
-spring:
-  config:
-    activate:
-      on-profile: dev
-
-products:
-  prefix: "[Sample] "
+        include: openapi,swaggerui,health,info
