@@ -7,7 +7,6 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
+import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
@@ -25,6 +26,8 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class ProductController {
 
     private final ProductDao productDao;
+
+    ThreadLocalRandom random = ThreadLocalRandom.current();
 
     public ProductController(ProductDao productDao) {
         this.productDao = productDao;
@@ -38,7 +41,10 @@ public class ProductController {
             @ApiResponse(responseCode = "404", description = "Products not found",
                     content = @Content)})
     @GetMapping(value = "/products", produces = APPLICATION_JSON_VALUE)
-    public List<ProductDto> products() {
+    public List<ProductDto> products() throws InterruptedException {
+        long sleepFor = random.nextLong(5000);
+        System.out.println("Sleeping for: " + sleepFor);
+        MILLISECONDS.sleep(sleepFor);
         return productDao.getProducts();
     }
 
