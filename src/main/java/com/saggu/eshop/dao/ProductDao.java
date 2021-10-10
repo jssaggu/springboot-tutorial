@@ -3,16 +3,22 @@ package com.saggu.eshop.dao;
 import com.saggu.eshop.dto.ProductDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import static java.util.concurrent.TimeUnit.SECONDS;
 
 @Repository
 @Slf4j
 public class ProductDao {
 
-    static int id=100;
+    static int id = 100;
 
     private final String prefix;
 
@@ -31,14 +37,26 @@ public class ProductDao {
         return "P" + id++;
     }
 
+    @Cacheable("products")
     public List<ProductDto> getProducts() {
-        return productList;
+        sleep(1);
+        System.out.println("Calling service to get Products data...");
+        return new ArrayList<>(productList);
     }
 
+    @CacheEvict(value = "products", allEntries = true)
     public ProductDto addProduct(ProductDto product) {
         product.setProductId(createAndGetId());
         product.setName(prefix + product.getName());
         productList.add(product);
         return product;
+    }
+
+    private void sleep(int seconds) {
+        try {
+            SECONDS.sleep(seconds);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

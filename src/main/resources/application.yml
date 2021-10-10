@@ -25,3 +25,9 @@ management:
     web:
       exposure:
         include: openapi,swaggerui,health,info
+
+spring:
+  cache:
+    redis:
+      time-to-live: 10S
+

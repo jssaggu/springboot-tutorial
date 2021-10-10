@@ -9,12 +9,13 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.saggu</groupId>
-	<artifactId>SpringBootTutorial</artifactId>
+	<artifactId>springboot-tutorial</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>products</name>
 	<description>Eshop Products Service</description>
 	<properties>
 		<java.version>11</java.version>
+		<cache.version>2.5.5</cache.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -55,6 +56,22 @@
 			<artifactId>okhttp</artifactId>
 			<version>4.9.1</version>
 		</dependency>
+
+		<!-- Cache -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-cache</artifactId>
+			<version>${cache.version}</version>
+		</dependency>
+
+		<!-- Redis -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
+			<version>${cache.version}</version>
+		</dependency>
+		<!-- Redis -->
+		<!-- Cache -->
 
 	</dependencies>
 

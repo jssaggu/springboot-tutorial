@@ -42,9 +42,6 @@ public class ProductController {
                     content = @Content)})
     @GetMapping(value = "/products", produces = APPLICATION_JSON_VALUE)
     public List<ProductDto> products() throws InterruptedException {
-        long sleepFor = random.nextLong(5000);
-        System.out.println("Sleeping for: " + sleepFor);
-        MILLISECONDS.sleep(sleepFor);
         return productDao.getProducts();
     }
 
