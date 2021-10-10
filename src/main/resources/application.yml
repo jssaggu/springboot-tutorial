@@ -29,5 +29,6 @@ management:
 spring:
   cache:
     redis:
-      time-to-live: 10S
+      time-to-live: 100S
+    type: simple
 
