@@ -39,8 +39,7 @@ public class ProductDao {
 
     @Cacheable("products")
     public List<ProductDto> getProducts() {
-        sleep(1);
-        System.out.println("Calling service to get Products data...");
+        log.info("Calling service to get Products data...");
         return new ArrayList<>(productList);
     }
 
