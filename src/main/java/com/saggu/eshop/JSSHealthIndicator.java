@@ -13,7 +13,7 @@ public class JSSHealthIndicator implements HealthIndicator {
 
     @Override
     public Health health() {
-        Health health = Health.down().build();
+        Health health = Health.up().build();
         //System.out.println("JSS Health: " + health);
         return health;
     }

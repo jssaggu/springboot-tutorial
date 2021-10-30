@@ -18,17 +18,19 @@ server:
       max: 5
     max-connections: 10
 
-management:
-  server:
-    port: 9090
-  endpoints:
-    web:
-      exposure:
-        include: openapi,swaggerui,health,info
-
 spring:
   cache:
     redis:
       time-to-live: 100S
     type: simple
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+  server:
+    port: 9090

@@ -40,6 +40,7 @@ public class ProductDao {
     @Cacheable("products")
     public List<ProductDto> getProducts() {
         log.info("Calling service to get Products data...");
+        log.debug("This s debug Calling service to get Products data...");
         return new ArrayList<>(productList);
     }
 
