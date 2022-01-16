@@ -24,7 +24,7 @@ class ProductControllerTest {
 
     @Test
     void givenProducts_GetProductsEndpoint_ShouldReturnProductsList() {
-        String baseUrl = "http://localhost:" + port + "/products";
+        String baseUrl = "http://localhost:" + port + "/v1/products";
         ResponseEntity<ProductDto[]> response = restTemplate.getForEntity(baseUrl, ProductDto[].class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody().length).isGreaterThanOrEqualTo(2);
@@ -32,7 +32,7 @@ class ProductControllerTest {
 
     @Test
     void givenANewProduct_PostProductsEndpoint_ShouldAddANewProduct() {
-        String baseUrl = "http://localhost:" + port + "/products";
+        String baseUrl = "http://localhost:" + port + "/v1/products";
         ProductDto productSamsung = ProductDto.builder().name("Sony 4K TV 75").price(3049.99).description("Sony LED 4k Smart TV").build();
         ResponseEntity<ProductDto> response = restTemplate.postForEntity(baseUrl, productSamsung, ProductDto.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
