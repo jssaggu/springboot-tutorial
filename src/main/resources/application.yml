@@ -1,7 +1,7 @@
 logging:
 
   level:
-    root: ERROR
+    root: INFO
     eshop-dao: DEBUG
     eshop-controller: INFO
     eshop: INFO
@@ -17,12 +17,6 @@ server:
     threads:
       max: 5
     max-connections: 10
-
-spring:
-  cache:
-    redis:
-      time-to-live: 100S
-    type: simple
 
 management:
   endpoints:
