@@ -14,7 +14,7 @@
 	<name>products</name>
 	<description>Eshop Products Service</description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>8</java.version>
 		<cache.version>2.5.5</cache.version>
 	</properties>
 	<dependencies>

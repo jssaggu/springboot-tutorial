@@ -8,12 +8,12 @@ import org.springframework.cache.annotation.EnableCaching;
 
 @SpringBootApplication
 @EnableCaching
-public class ProductsApplication {
+public class SpringBootTutorialApplication {
 
-    private static final Logger log = LoggerFactory.getLogger(ProductsApplication.class);
+    private static final Logger log = LoggerFactory.getLogger(SpringBootTutorialApplication.class);
 
     public static void main(String[] args) {
-        SpringApplication.run(ProductsApplication.class, args);
+        SpringApplication.run(SpringBootTutorialApplication.class, args);
         for (int i = 0; i < 2; i++) {
             log.info("This is just a msg: {}", i);
         }
