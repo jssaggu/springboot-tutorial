@@ -15,7 +15,7 @@
 	<description>Eshop Products Service</description>
 	<properties>
 		<java.version>17</java.version>
-		<cache.version>2.6.4</cache.version>
+		<cache.version>2.6.5</cache.version>
 	</properties>
 	<dependencies>
 
