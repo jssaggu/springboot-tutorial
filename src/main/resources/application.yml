@@ -28,3 +28,11 @@ management:
       show-details: always
   server:
     port: 9090
+
+#flyway:
+#  enabled: true
+#  locations: classpath:resources/db/migration
+#
+#spring:
+#  flyway:
+#    enabled: true

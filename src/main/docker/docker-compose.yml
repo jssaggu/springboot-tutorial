@@ -1,0 +1,35 @@
+version: '3.9'
+
+services:
+
+  postgres:
+    image: postgres
+    container_name: postgres
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: postgres
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready", "-d", "db_prod" ]
+      interval: 30s
+      timeout: 60s
+      retries: 5
+      start_period: 80s
+      #URL	jdbc:postgresql://localhost:5432/postgres
+
+  flyway:
+    container_name: flyway
+    image: flyway/flyway
+    command: migrate -X
+    environment:
+      FLYWAY_SCHEMAS: "PUBLIC"
+    restart: on-failure
+    volumes:
+      - ./flyway-postgres.conf:/flyway/conf/flyway.conf
+      - ../resources/db/migration:/flyway/sql
+    depends_on:
+      postgres:
+        condition: service_healthy
