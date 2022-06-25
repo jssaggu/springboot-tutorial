@@ -25,7 +25,7 @@ services:
     image: flyway/flyway
     command: migrate -X
     environment:
-      FLYWAY_SCHEMAS: "PUBLIC"
+      FLYWAY_SCHEMAS: "public"
     restart: on-failure
     volumes:
       - ./flyway-postgres.conf:/flyway/conf/flyway.conf

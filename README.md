@@ -91,7 +91,7 @@ hazelcast:
 #### H2
  `mvn clean -Dflyway.configFiles=src/main/docker/flyway-h2.conf -Dflyway.locations=filesystem:src/main/resources/db/migration/ flyway:migrate`
 #### Postgres
- `mvn clean -Dflyway.configFiles=src/main/docker/flyway-postgres.conf -Dflyway.url=jdbc:localhost://postgres:5432/postgres -Dflyway.locations=filesystem:src/main/resources/db/migration/ flyway:migrate`
+ `mvn clean -Dflyway.configFiles=src/main/docker/flyway-postgres.conf -Dflyway.url=jdbc:postgresql://localhost:5432/postgres -Dflyway.locations=filesystem:src/main/resources/db/migration/ flyway:migrate`
 
 ### Other goals 
 Official doc: https://flywaydb.org/documentation/usage/maven/
