@@ -36,3 +36,12 @@ management:
 #spring:
 #  flyway:
 #    enabled: true
+
+
+jss:
+  name: Jasvinder S Saggu
+  number: 20
+  cities:
+    - London
+    - Slough
+    - Glasgow

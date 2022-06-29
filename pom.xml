@@ -11,8 +11,9 @@
 	<groupId>com.saggu</groupId>
 	<artifactId>springboot-tutorial</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>products</name>
+	<name>Springboot Tutorial</name>
 	<description>Saggu.UK Spring Tutorial</description>
+
 	<properties>
 		<java.version>17</java.version>
 		<cache.version>2.6.4</cache.version>
@@ -20,12 +21,26 @@
 		<flywaydb.version>8.5.12</flywaydb.version>
 		<h2database.version>2.1.210</h2database.version>
 		<postgres.version>42.4.0</postgres.version>
+		<junit.engine.version>5.6.0</junit.engine.version>
 	</properties>
+
 	<dependencies>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<dependency>
+			<groupId>org.freemarker</groupId>
+			<artifactId>freemarker</artifactId>
+			<version>2.3.31</version>
 		</dependency>
 
 		<dependency>
@@ -113,6 +128,14 @@
 		</dependency>
 
 		<!-- End Flyway -->
+
+
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<version>${junit.engine.version}</version>
+			<scope>test</scope>
+		</dependency>
 
 	</dependencies>
 

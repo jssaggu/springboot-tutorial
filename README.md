@@ -93,6 +93,11 @@ hazelcast:
 #### Postgres
  `mvn clean -Dflyway.configFiles=src/main/docker/flyway-postgres.conf -Dflyway.url=jdbc:postgresql://localhost:5432/postgres -Dflyway.locations=filesystem:src/main/resources/db/migration/ flyway:migrate`
 
+
+### Using Docker
+
+`docker run --rm flyway/flyway info -user=admin -password=admin -url=jdbc:postgresql://host.docker.internal:5432/postgres migrate`
+
 ### Other goals 
 Official doc: https://flywaydb.org/documentation/usage/maven/
 

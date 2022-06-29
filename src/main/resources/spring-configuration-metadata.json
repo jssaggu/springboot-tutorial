@@ -1,0 +1,42 @@
+{
+  "groups": [
+    {
+      "name": "jss",
+      "type": "com.saggu.eshop.config.JssProperties",
+      "sourceType": "com.saggu.eshop.config.JssProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "jss.cities",
+      "type": "java.util.List<java.lang.String>",
+      "description": "This property should be used to define a list.",
+      "sourceType": "com.saggu.eshop.config.JssProperties"
+    },
+    {
+      "name": "jss.name",
+      "type": "java.lang.String",
+      "description": "This property should be used to name the request.",
+      "sourceType": "com.saggu.eshop.config.JssProperties"
+    },
+    {
+      "name": "jss.name-with-default",
+      "type": "java.lang.String",
+      "description": "This property should be used to name the request. Default value=I'm Default",
+      "sourceType": "com.saggu.eshop.config.JssProperties"
+    },
+    {
+      "name": "jss.number",
+      "type": "java.lang.Integer",
+      "description": "This property should be used to specify number.",
+      "sourceType": "com.saggu.eshop.config.JssProperties"
+    },
+    {
+      "name": "jss.number-with-default",
+      "type": "java.lang.Integer",
+      "description": "This property should be used to specify number and has a default value.",
+      "sourceType": "com.saggu.eshop.config.JssProperties"
+    }
+  ],
+  "hints": []
+}
