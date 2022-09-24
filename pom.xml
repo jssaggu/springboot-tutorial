@@ -15,7 +15,7 @@
 	<description>Saggu.UK Spring Tutorial</description>
 	<properties>
 		<java.version>17</java.version>
-		<cache.version>2.7.3</cache.version>
+		<cache.version>2.7.4</cache.version>
 
 		<flywaydb.version>9.3.1</flywaydb.version>
 		<h2database.version>2.1.214</h2database.version>
