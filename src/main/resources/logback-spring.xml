@@ -7,7 +7,7 @@
               class="ch.qos.logback.core.ConsoleAppender">
         <layout class="ch.qos.logback.classic.PatternLayout">
             <Pattern>
-                %yellow(%d{yyyy-MM-dd HH:mm:ss.SSS}) %highlight(%-5level) [%blue(%t)] %yellow(%C{0.}): [%msg]%n%throwable
+                %yellow(%d{yyyy-MM-dd HH:mm:ss.SSS}) %highlight(%-5level) [%blue(%t)] %yellow(%C{0}): [%msg]%n%throwable
             </Pattern>
         </layout>
     </appender>
@@ -17,7 +17,7 @@
         <file>${LOGS}/spring-boot-logger.log</file>
         <encoder
                 class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <Pattern>%d %p %C{1.} [%t] %m%n</Pattern>
+            <Pattern>%d %p %C{1} [%t] %m%n</Pattern>
         </encoder>
 
         <rollingPolicy
