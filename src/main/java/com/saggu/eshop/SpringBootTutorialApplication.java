@@ -6,6 +6,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 
+import static com.saggu.eshop.utils.AppUtils.printMemory;
+
 @SpringBootApplication
 @EnableCaching
 public class SpringBootTutorialApplication {
@@ -14,8 +16,11 @@ public class SpringBootTutorialApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(SpringBootTutorialApplication.class, args);
-        for (int i = 0; i < 2; i++) {
-            log.info("This is just a msg: {}", i);
-        }
+        printMemory("0");
     }
+
+//    @Bean
+//    public CacheManager hazelcastCacheManager(HazelcastInstance hazelcastInstance) {
+//        return new HazelcastCacheManager(hazelcastInstance);
+//    }
 }

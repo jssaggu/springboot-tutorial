@@ -1,5 +1,32 @@
+#  https://docs.hazelcast.com/imdg/4.2/storage/high-density-memory
+# https://hazelcast.com/blog/introduction-hazelcast-hd-memory/
+# https://docs.hazelcast.com/hazelcast/5.2/deploy/enterprise-licenses
+# https://hazelcast.com/get-started/download/
+# https://docs.hazelcast.com/hazelcast/5.1/integrated-clustering/spring
+
 hazelcast:
+  cluster-name: ips-pilot
   network:
+    port:
+      auto-increment: true
+      port-count: 100
+      port: 5701
     join:
       multicast:
         enabled: true
+  license-key: PLATFORM#12Nodes#WN6mfMT9Yqi1uJw5SGjHAEbnBly8UXCdOgQDP0KZk217030019020110121000101019020911101101111011
+
+  native-memory:
+    enabled: true
+    allocator-type: POOLED
+    size:
+      unit: GIGABYTES
+      value: 2
+
+  map:
+    products:
+      in-memory-format: NATIVE
+      eviction:
+        eviction-policy: LFU
+        max-size-policy: USED_NATIVE_MEMORY_PERCENTAGE
+        size: 99

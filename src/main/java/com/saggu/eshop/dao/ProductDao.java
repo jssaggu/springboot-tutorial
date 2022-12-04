@@ -1,10 +1,16 @@
 package com.saggu.eshop.dao;
 
+import com.hazelcast.cache.HazelcastCacheManager;
+import com.hazelcast.cache.ICache;
+import com.hazelcast.cache.impl.HazelcastInstanceCacheManager;
+import com.hazelcast.core.HazelcastInstance;
+import com.hazelcast.core.ICacheManager;
 import com.saggu.eshop.dto.ProductDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -13,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import static com.saggu.eshop.utils.AppUtils.printMemory;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 @Repository
@@ -20,10 +27,17 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 public class ProductDao {
     static int id = 100;
     private final String prefix;
-    private final Map<String, ProductDto> productList = new HashMap<>();
+    private final HazelcastInstance hazelcastInstance;
 
-    public ProductDao(@Value("${products.prefix:}") String prefix) {
+    private final Map<String, ProductDto> productList;
+//    private final IMap<String, ProductDto> productListHC;
+
+    public ProductDao(@Value("${products.prefix:}") String prefix, HazelcastInstance hazelcastInstance) {
         this.prefix = prefix;
+        this.hazelcastInstance = hazelcastInstance;
+//        productList = hazelcastInstance.getMap("products");
+        productList = new HashMap<>();
+//        productListHC = hazelcastInstance.getMap("products-hc");
         addProducts();
     }
 
@@ -38,7 +52,7 @@ public class ProductDao {
         log.warn("This is a warning that I have added 3 products only...");
     }
 
-    private String createAndGetId() {
+    public static String createAndGetId() {
         return "P" + id++;
     }
 
@@ -50,13 +64,34 @@ public class ProductDao {
         return new ArrayList<>(productList.values());
     }
 
-    @CachePut(value = "products")
+    //@CachePut(value = "products")
+    @Caching(
+            put = {
+                    @CachePut(cacheNames = "products"),
+                    @CachePut(cacheNames = "products", key = "#product.productId")
+            }
+    )
     public ProductDto addProduct(ProductDto product) {
-        String id = createAndGetId();
-        product.setProductId(id);
+        //printMemory(product.getProductId());
         product.setName(prefix + product.getName());
-        productList.put(id, product);
+        product.setDescription(addChars(500_000));
+        productList.put(product.getProductId(), product);
+
+        HazelcastInstanceCacheManager cacheManager = (HazelcastInstanceCacheManager)hazelcastInstance.getCacheManager();
+
+//        System.out.println(cacheManager.getCacheNames());
+
+        printMemory(product.getProductId() + " - " + productList.size() );
         return product;
+    }
+
+    private String addChars(int totalCharsToAdd) {
+        StringBuilder sb = new StringBuilder("");
+
+        for (int i = 0; i < totalCharsToAdd; i++) {
+            sb.append("A");
+        }
+        return sb.toString();
     }
 
     @CachePut(value = "products", key = "#productId")

@@ -1,5 +1,6 @@
 package com.saggu.eshop.controller;
 
+import com.saggu.eshop.configuration.EshopProperties;
 import com.saggu.eshop.dao.OrderDao;
 import com.saggu.eshop.dto.ProductDto;
 import io.swagger.v3.oas.annotations.Operation;
@@ -26,9 +27,16 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class OrdersController {
 
     private final OrderDao orderDao;
+    private final EshopProperties eshopProperties;
 
-    public OrdersController(OrderDao orderDao) {
+    String text = "MyName=%s&Yours=%s";
+
+    public OrdersController(OrderDao orderDao, EshopProperties eshopProperties) {
         this.orderDao = orderDao;
+        this.eshopProperties = eshopProperties;
+
+        System.out.println(String.format(text, eshopProperties.getName(), "Foo"));
+
     }
 
     @GetMapping(value = "/orders", produces = APPLICATION_JSON_VALUE)

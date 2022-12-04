@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
+import static com.saggu.eshop.dao.ProductDao.createAndGetId;
+import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
@@ -53,7 +55,20 @@ public class ProductController {
 
     @PostMapping(value = "/products")
     public ResponseEntity<ProductDto> addProduct(@RequestBody ProductDto productDto) {
+        String id = createAndGetId();
+        productDto.setProductId(id);
         return ResponseEntity.status(HttpStatus.CREATED).body(productDao.addProduct(productDto));
+    }
+
+    @PostMapping(value = "/products-multi")
+    public ResponseEntity<String> addMultiProduct(@RequestBody ProductDto productDto) throws InterruptedException {
+        for (int i = 0; i < 10_000; i++) {
+            String id = createAndGetId();
+            productDto.setProductId(id);
+            productDao.addProduct(productDto);
+//            MILLISECONDS.sleep(500);
+        }
+        return ResponseEntity.status(HttpStatus.CREATED).body("Added 100");
     }
 
     @PutMapping(value = "/products/{productId}")

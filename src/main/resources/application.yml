@@ -36,3 +36,13 @@ management:
 #spring:
 #  flyway:
 #    enabled: true
+
+
+jss:
+  name: JSS&New=Saggu
+
+spring:
+  cache:
+    type: HAZELCAST
+  hazelcast:
+    config: classpath:hazelcast.yaml
