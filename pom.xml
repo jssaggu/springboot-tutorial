@@ -11,7 +11,7 @@
 	<groupId>com.saggu</groupId>
 	<artifactId>springboot-tutorial</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>products</name>
+	<name>SpringBoot-Tutorial</name>
 	<description>Saggu.UK Spring Tutorial</description>
 	<properties>
 		<java.version>17</java.version>
@@ -20,6 +20,8 @@
 		<flywaydb.version>9.8.3</flywaydb.version>
 		<h2database.version>2.1.214</h2database.version>
 		<postgres.version>42.4.0</postgres.version>
+
+		<spring-boot-admin-starter-client.version>2.4.1</spring-boot-admin-starter-client.version>
 	</properties>
 	<dependencies>
 
@@ -120,6 +122,11 @@
 			<optional>true</optional>
 		</dependency>
 
+		<dependency>
+			<groupId>de.codecentric</groupId>
+			<artifactId>spring-boot-admin-starter-client</artifactId>
+			<version>3.0.0-M5</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -135,6 +142,13 @@
 						</exclude>
 					</excludes>
 				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>build-info</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 
 			<plugin>

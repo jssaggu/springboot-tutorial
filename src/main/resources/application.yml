@@ -1,5 +1,16 @@
-logging:
+spring:
+  application:
+    name: Spring Boot Tutorial by SagguUK (@sagguuk)
+  boot:
+    admin:
+      client:
+        url:  http://localhost:9090
+        enabled: true
+        auto-registration: true
+        instance:
+          name: ${spring.application.name:JSS}
 
+logging:
   level:
     root: INFO
     eshop-dao: DEBUG
@@ -26,8 +37,16 @@ management:
   endpoint:
     health:
       show-details: always
+    configprops:
+      show-values: always
+    env:
+      show-values: always
+
+  #    loggers:
+#      enabled: true
+
   server:
-    port: 9090
+    port: ${server.port:8081}
 
 #flyway:
 #  enabled: true
