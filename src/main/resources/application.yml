@@ -41,9 +41,8 @@ management:
       show-values: always
     env:
       show-values: always
-
-  #    loggers:
-#      enabled: true
+    loggers:
+      enabled: true
 
   server:
     port: ${server.port:8081}

@@ -1,19 +1,19 @@
+/* (C)2023 */
 package com.saggu.eshop.dao;
 
-import com.saggu.eshop.dto.ProductDto;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.stereotype.Repository;
+import static java.util.concurrent.TimeUnit.SECONDS;
 
+import com.saggu.eshop.dto.ProductDto;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-
-import static java.util.concurrent.TimeUnit.SECONDS;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.stereotype.Repository;
 
 @Repository
 @Slf4j
@@ -30,11 +30,17 @@ public class ProductDao {
     public void addProducts() {
         log.debug("Hello Constructor");
         String id = createAndGetId();
-        productList.put(id, ProductDto.builder().productId(id).name(this.prefix + "Sony 4K TV 65").price(2049.99).description("Sony LED 4k Smart TV").build());
+        productList.put(
+                id,
+                new ProductDto(id, this.prefix + "Sony 4K TV 65", 2049.99, "Sony LED 4k Smart TV"));
         id = createAndGetId();
-        productList.put(id, ProductDto.builder().productId(id).name(this.prefix + "Sony 4K TV 55").price(1049.99).description("Sony LED 4k Smart TV").build());
+        productList.put(
+                id,
+                new ProductDto(id, this.prefix + "Sony 4K TV 55", 1049.99, "Sony LED 4k Smart TV"));
         id = createAndGetId();
-        productList.put(id, ProductDto.builder().productId(id).name(this.prefix + "Sony 4K TV 75").price(3049.99).description("Sony LED 4k Smart TV").build());
+        productList.put(
+                id,
+                new ProductDto(id, this.prefix + "Sony 4K TV 75", 3049.99, "Sony LED 4k Smart TV"));
         log.warn("This is a warning that I have added 3 products only...");
     }
 
@@ -53,17 +59,18 @@ public class ProductDao {
     @CachePut(value = "products")
     public ProductDto addProduct(ProductDto product) {
         String id = createAndGetId();
-        product.setProductId(id);
-        product.setName(prefix + product.getName());
-        productList.put(id, product);
-        return product;
+        ProductDto productDto =
+                new ProductDto(id, prefix + product.name(), product.price(), product.description());
+        productList.put(id, productDto);
+        return productDto;
     }
 
     @CachePut(value = "products", key = "#productId")
     public ProductDto updateProduct(String productId, ProductDto product) {
-        product.setProductId(productId);
-        productList.put(productId, product);
-        return product;
+        ProductDto productDto =
+                new ProductDto(productId, product.name(), product.price(), product.description());
+        productList.put(productId, productDto);
+        return productDto;
     }
 
     @Cacheable(value = "products", key = "#productId")
