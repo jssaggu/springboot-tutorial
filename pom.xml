@@ -23,7 +23,7 @@
 
         <spring-boot-admin-starter-client.version>2.4.1</spring-boot-admin-starter-client.version>
 
-        <spotless.version>2.28.0</spotless.version>
+        <spotless.version>2.29.0</spotless.version>
     </properties>
     <dependencies>
 
