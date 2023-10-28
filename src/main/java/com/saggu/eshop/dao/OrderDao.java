@@ -4,12 +4,12 @@ package com.saggu.eshop.dao;
 import com.saggu.eshop.dto.ProductDto;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 import lombok.extern.slf4j.Slf4j;
 import org.springdoc.api.OpenApiResourceNotFoundException;
 import org.springframework.stereotype.Repository;
-import org.webjars.NotFoundException;
 
 @Repository
 @Slf4j
@@ -38,7 +38,7 @@ public class OrderDao {
         log.info("Calling service to get Orders data...");
         return productDao
                 .getProduct(orders.get(orderId))
-                .orElseThrow(() -> new NotFoundException("OrderId not found: " + orderId));
+                .orElseThrow(() -> new NoSuchElementException("OrderId not found: " + orderId));
     }
 
     public String addOrder(String productId) {
@@ -48,7 +48,7 @@ public class OrderDao {
             orders.put(orderId, product.get().productId());
             return orderId;
         } else {
-            throw new NotFoundException("Invalid Product ID: " + productId);
+            throw new NoSuchElementException("Invalid Product ID: " + productId);
         }
     }
 
