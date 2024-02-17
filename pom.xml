@@ -17,7 +17,7 @@
         <java.version>17</java.version>
         <cache.version>3.0.5</cache.version>
 
-        <flywaydb.version>9.16.3</flywaydb.version>
+        <flywaydb.version>9.20.0</flywaydb.version>
         <h2database.version>2.1.214</h2database.version>
         <postgres.version>42.4.0</postgres.version>
 
