@@ -24,6 +24,10 @@
         <spring-boot-admin-starter-client.version>2.4.1</spring-boot-admin-starter-client.version>
 
         <spotless.version>2.37.0</spotless.version>
+
+        <cucumber.version>7.15.0</cucumber.version>
+        <wiremock.version>3.0.1</wiremock.version>
+        <toxiproxy.version>2.1.7</toxiproxy.version>
     </properties>
     <dependencies>
 
@@ -129,6 +133,32 @@
             <artifactId>spring-boot-admin-starter-client</artifactId>
             <version>3.0.4</version>
         </dependency>
+
+        <!-- cucumber -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>${cucumber.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-junit</artifactId>
+            <version>${cucumber.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.tomakehurst</groupId>
+            <artifactId>wiremock</artifactId>
+            <version>${wiremock.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>eu.rekawek.toxiproxy</groupId>
+            <artifactId>toxiproxy-java</artifactId>
+            <version>${toxiproxy.version}</version>
+        </dependency>
+
     </dependencies>
 
     <build>

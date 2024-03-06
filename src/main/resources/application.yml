@@ -45,7 +45,7 @@ management:
       enabled: true
 
   server:
-    port: ${server.port:8081}
+    port: ${server.port:8080}
 
 #flyway:
 #  enabled: true

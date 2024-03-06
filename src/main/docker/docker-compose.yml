@@ -33,3 +33,15 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+
+  toxiproxy:
+    container_name: toxiproxy
+    image: ghcr.io/shopify/toxiproxy
+    command: ["toxiproxy"]
+    stdin_open: true
+    tty: true
+    restart: "no"
+    network_mode: host
+#  To add new entry run:
+#  docker exec --net=host -it toxiproxy /toxiproxy-cli create -l localhost:8081 -u localhost:8080 springboot8080
+# Native start: toxiproxy-server
