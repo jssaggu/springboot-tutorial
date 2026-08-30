@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.2.3</version>
+        <version>4.1.1</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.saggu</groupId>
@@ -14,22 +14,22 @@
     <name>SpringBoot-Tutorial</name>
     <description>Saggu.UK Spring Tutorial</description>
     <properties>
-        <java.version>17</java.version>
-        <cache.version>3.2.3</cache.version>
+        <java.version>21</java.version>
 
-        <flywaydb.version>10.8.1</flywaydb.version>
-        <h2database.version>2.1.214</h2database.version>
-        <postgres.version>42.4.0</postgres.version>
+        <!-- Versions not managed by the Spring Boot BOM -->
+        <springdoc.version>3.1.0</springdoc.version>
+        <guava.version>33.7.1-jre</guava.version>
+        <okhttp.version>5.5.0</okhttp.version>
+        <spring-boot-admin.version>4.1.2</spring-boot-admin.version>
 
-        <spring-boot-admin-starter-client.version>2.4.1</spring-boot-admin-starter-client.version>
-
-        <spotless.version>2.43.0</spotless.version>
+        <spotless.version>3.10.1</spotless.version>
+        <google-java-format.version>1.36.1</google-java-format.version>
     </properties>
     <dependencies>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <artifactId>spring-boot-starter-webmvc</artifactId>
         </dependency>
 
         <dependency>
@@ -45,8 +45,8 @@
 
         <dependency>
             <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-ui</artifactId>
-            <version>1.7.0</version>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>${springdoc.version}</version>
         </dependency>
 
         <dependency>
@@ -55,67 +55,78 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- RestClient auto-configuration is its own module in Spring Boot 4; the
+             Spring Boot Admin client needs it at runtime for registration. -->
         <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>33.2.0-jre</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-restclient</artifactId>
+        </dependency>
+
+        <!-- TestRestTemplate moved to its own module in Spring Boot 4. -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-resttestclient</artifactId>
+            <scope>test</scope>
         </dependency>
 
         <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
+        </dependency>
+
+        <!-- OkHttp 5 publishes the JVM classes under the -jvm artifact (Kotlin Multiplatform);
+             the bare "okhttp" jar is an empty aggregator that Maven cannot resolve. -->
+        <dependency>
             <groupId>com.squareup.okhttp3</groupId>
-            <artifactId>okhttp</artifactId>
-            <version>4.12.0</version>
+            <artifactId>okhttp-jvm</artifactId>
+            <version>${okhttp.version}</version>
+            <scope>test</scope>
         </dependency>
 
         <!-- Cache -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-cache</artifactId>
-            <version>${cache.version}</version>
         </dependency>
 
         <!-- Redis -->
         <!--<dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
-            <version>${cache.version}</version>
         </dependency>-->
         <!-- Redis End -->
 
         <!-- Hazelcast -->
         <!--<dependency>
             <groupId>com.hazelcast</groupId>
-            <artifactId>hazelcast-all</artifactId>
-            <version>4.2.6</version>
+            <artifactId>hazelcast-spring</artifactId>
         </dependency>-->
         <!-- Hazelcast End -->
         <!-- Cache -->
 
         <!-- Flyway -->
         <dependency>
-            <groupId>org.flywaydb</groupId>
-            <artifactId>flyway-core</artifactId>
-            <version>${flywaydb.version}</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-flyway</artifactId>
         </dependency>
 
         <dependency>
             <groupId>org.flywaydb</groupId>
-            <artifactId>flyway-maven-plugin</artifactId>
-            <version>${flywaydb.version}</version>
+            <artifactId>flyway-database-postgresql</artifactId>
         </dependency>
 
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-            <version>${h2database.version}</version>
+            <scope>runtime</scope>
         </dependency>
 
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>${postgresql.version}</version>
+            <scope>runtime</scope>
         </dependency>
-
         <!-- End Flyway -->
 
         <dependency>
@@ -127,7 +138,7 @@
         <dependency>
             <groupId>de.codecentric</groupId>
             <artifactId>spring-boot-admin-starter-client</artifactId>
-            <version>3.2.3</version>
+            <version>${spring-boot-admin.version}</version>
         </dependency>
     </dependencies>
 
@@ -156,7 +167,14 @@
             <plugin>
                 <groupId>org.flywaydb</groupId>
                 <artifactId>flyway-maven-plugin</artifactId>
-                <version>${flywaydb.version}</version>
+                <version>${flyway.version}</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.flywaydb</groupId>
+                        <artifactId>flyway-database-postgresql</artifactId>
+                        <version>${flyway.version}</version>
+                    </dependency>
+                </dependencies>
             </plugin>
 
             <!-- Spotless-->
@@ -178,15 +196,13 @@
                             <!-- define the steps to apply to those files -->
                             <trimTrailingWhitespace/>
                             <endWithNewline/>
-                            <indent>
-                                <tabs>true</tabs>
-                                <spacesPerTab>4</spacesPerTab>
-                            </indent>
+                            <!-- NB: no indent step here on purpose - forcing tabs would
+                                 corrupt nested Markdown lists and fenced code blocks. -->
                         </format>
                     </formats>
                     <java>
                         <googleJavaFormat>
-                            <version>1.15.0</version>
+                            <version>${google-java-format.version}</version>
                             <style>AOSP</style>
                             <reflowLongStrings>true</reflowLongStrings>
                         </googleJavaFormat>
