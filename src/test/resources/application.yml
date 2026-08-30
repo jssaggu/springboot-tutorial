@@ -1,0 +1,7 @@
+# Test-only overrides. Spring Boot Admin registration is disabled so the test
+# context does not repeatedly try (and fail) to reach a local admin server.
+spring:
+  boot:
+    admin:
+      client:
+        enabled: false

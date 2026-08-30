@@ -21,10 +21,13 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - name: Set up JDK 17
+      with:
+        # Spotless' ratchetFrom=origin/main needs the main ref and history to diff against
+        fetch-depth: 0
+    - name: Set up JDK 21
       uses: actions/setup-java@v4
       with:
-        java-version: '17'
+        java-version: '21'
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven

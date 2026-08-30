@@ -20,10 +20,17 @@ All tutorial videos are available on the Saggu.uk YouTube channel.
 - [Contributing](#contributing)
 
 ## Prerequisites
-- Java 17 or later
-- Maven 3.6+
+- Java 21 or later
+- Maven 3.9+ (the bundled `./mvnw` wrapper downloads a compatible version)
 - Docker (optional, for running Redis and databases)
 - IDE (IntelliJ IDEA recommended)
+
+## Tech Stack
+- Spring Boot 4.1.x (Spring Framework 7, Jakarta EE 11, Jackson 3)
+- Java 21
+- springdoc-openapi 3.x (`springdoc-openapi-starter-webmvc-ui`)
+- Flyway (version managed by the Spring Boot BOM)
+- Spring Boot Admin client 4.1.x
 
 ## Getting Started
 
@@ -87,12 +94,11 @@ The project supports multiple caching providers. **Note:** Enable only one cache
 
 #### Redis Cache
 
-1. Add the dependency:
+1. Add the dependency (the version is managed by the Spring Boot BOM):
 ```xml
 <dependency>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-data-redis</artifactId>
-    <version>${cache.version}</version>
 </dependency>
 ```
 
@@ -113,12 +119,12 @@ docker run --name saggu.uk -p 6379:6379 -d redis
 
 #### Hazelcast Cache
 
-1. Add the dependency:
+1. Add the dependency (Hazelcast 5.x replaced `hazelcast-all` with `hazelcast-spring`;
+   the version is managed by the Spring Boot BOM):
 ```xml
 <dependency>
     <groupId>com.hazelcast</groupId>
-    <artifactId>hazelcast-all</artifactId>
-    <version>4.2.4</version>
+    <artifactId>hazelcast-spring</artifactId>
 </dependency>
 ```
 
@@ -172,12 +178,23 @@ docker compose up -d
 
 ## Development
 
+### Building and Testing
+```bash
+./mvnw clean package                        # compile, Spotless check, tests, build the jar
+./mvnw test                                 # tests only
+./mvnw test -Dtest=ProductControllerTest    # a single test class
+./mvnw spotless:apply                       # auto-format changed sources (Google Java Format, AOSP)
+```
+Spotless runs on the `compile` phase, so a formatting violation fails the build. It only
+enforces files changed relative to `origin/main` (`ratchetFrom`).
+
 ### IDE Setup
 For IntelliJ IDEA:
 1. Open the project
 2. Import as Maven project
 3. Enable annotation processing
-4. Configure H2 database connection as described above
+4. Set the project SDK to Java 21
+5. Configure H2 database connection as described above
 
 ## Contributing
 Contributions are welcome! Please feel free to submit a Pull Request.

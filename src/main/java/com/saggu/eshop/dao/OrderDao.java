@@ -5,7 +5,6 @@ import com.saggu.eshop.dto.ProductDto;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 import lombok.extern.slf4j.Slf4j;
 import org.springdoc.api.OpenApiResourceNotFoundException;
@@ -42,23 +41,27 @@ public class OrderDao {
     }
 
     public String addOrder(String productId) {
+        ProductDto product =
+                productDao
+                        .getProduct(productId)
+                        .orElseThrow(
+                                () ->
+                                        new NoSuchElementException(
+                                                "Invalid Product ID: " + productId));
         String orderId = "O" + ORDER_ID.getAndIncrement();
-        Optional<ProductDto> product = productDao.getProduct(productId);
-        if (product.isPresent()) {
-            orders.put(orderId, product.get().productId());
-            return orderId;
-        } else {
-            throw new NoSuchElementException("Invalid Product ID: " + productId);
-        }
+        orders.put(orderId, product.productId());
+        return orderId;
     }
 
     public ProductDto updateOrder(String orderId, String productId) {
-        Optional<ProductDto> product = productDao.getProduct(productId);
-        if (product.isPresent()) {
-            orders.put(orderId, product.get().productId());
-            return product.get();
-        } else {
-            throw new OpenApiResourceNotFoundException("Invalid Product ID: " + productId);
-        }
+        ProductDto product =
+                productDao
+                        .getProduct(productId)
+                        .orElseThrow(
+                                () ->
+                                        new OpenApiResourceNotFoundException(
+                                                "Invalid Product ID: " + productId));
+        orders.put(orderId, product.productId());
+        return product;
     }
 }

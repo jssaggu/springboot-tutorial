@@ -42,7 +42,7 @@ management:
     env:
       show-values: always
     loggers:
-      enabled: true
+      access: unrestricted
 
   server:
     port: ${server.port:8081}
