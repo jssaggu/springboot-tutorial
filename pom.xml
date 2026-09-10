@@ -17,7 +17,7 @@
         <java.version>21</java.version>
 
         <!-- Versions not managed by the Spring Boot BOM -->
-        <springdoc.version>3.1.0</springdoc.version>
+        <springdoc.version>3.1.1</springdoc.version>
         <guava.version>33.7.1-jre</guava.version>
         <okhttp.version>5.5.0</okhttp.version>
         <spring-boot-admin.version>4.1.2</spring-boot-admin.version>
