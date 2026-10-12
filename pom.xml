@@ -20,7 +20,7 @@
         <springdoc.version>3.1.0</springdoc.version>
         <guava.version>33.7.1-jre</guava.version>
         <okhttp.version>5.5.0</okhttp.version>
-        <spring-boot-admin.version>4.1.2</spring-boot-admin.version>
+        <spring-boot-admin.version>4.1.4</spring-boot-admin.version>
 
         <spotless.version>3.10.1</spotless.version>
         <google-java-format.version>1.36.1</google-java-format.version>
