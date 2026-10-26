@@ -19,7 +19,7 @@
         <!-- Versions not managed by the Spring Boot BOM -->
         <springdoc.version>3.1.0</springdoc.version>
         <guava.version>33.7.1-jre</guava.version>
-        <okhttp.version>5.5.0</okhttp.version>
+        <okhttp.version>5.5.1</okhttp.version>
         <spring-boot-admin.version>4.1.2</spring-boot-admin.version>
 
         <spotless.version>3.10.1</spotless.version>
